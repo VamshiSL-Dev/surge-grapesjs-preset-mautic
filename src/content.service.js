@@ -1,4 +1,5 @@
 import Logger from './logger';
+import juice from 'juice';
 
 export default class ContentService {
   static modeEmailHtml = 'email-html';
@@ -81,7 +82,10 @@ export default class ContentService {
     if (!contentDocument || !contentDocument.body) {
       throw new Error('No html content found');
     }
-    return ContentService.serializeHtmlDocument(contentDocument);
+
+    const html = ContentService.serializeHtmlDocument(contentDocument);
+
+    return juice(html);
   }
 
   /**
